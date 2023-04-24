@@ -9,11 +9,10 @@ public class MyArrayList {
     private int size;
     public MyArrayList() {
         elements = new Object[10];
-        size = 0;
+        size=0;
     }
     public void add(Object value) {
-
-       elements[size]=value;
+        elements[size]=value;
         size++;
     }
     public void remove(int index){
@@ -36,5 +35,8 @@ public class MyArrayList {
     }
     public Object get(int index){
         return elements[index];
+    }
+    public void print(){
+        System.out.println(Arrays.toString(Arrays.copyOf(elements,size)));
     }
 }
