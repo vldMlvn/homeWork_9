@@ -1,19 +1,16 @@
 import java.util.Arrays;
 
-public class MyArrayList {
-
-
-
-
+public class MyStack {
     private Object[] elements;
     private int size;
-    public MyArrayList() {
+    public MyStack() {
         elements = new Object[10];
-        size=0;
+        size = 0;
     }
-    public void add(Object value) {
+    public void push(Object value) {
         elements[size]=value;
         size++;
+
     }
     public void remove(int index){
         if(index>=size){
@@ -23,7 +20,6 @@ public class MyArrayList {
         size --;
         for (int i=index;i<elements.length-1;i++)
             elements[i]=elements[i+1];
-
     }
     public void clear(){
         for(int i=0;i<size;i++){
@@ -34,8 +30,15 @@ public class MyArrayList {
     public int size(){
         return size;
     }
-    public Object get(int index){
-        return elements[index];
+    public Object peek(){
+        return elements[size-1];
     }
+    public Object pop(){
+        Object a=elements[size-1];
+        size--;
+
+        return a;
+    }
+
 
 }
