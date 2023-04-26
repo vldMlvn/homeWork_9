@@ -1,28 +1,23 @@
-public class MyHashMap {
-
-    private Node[] buckets;
+public class MyHashMap<K, V> {
+    private Node<K, V>[] buckets;
     private int size;
-
-    private static class Node {
-        Object key;
-        Object value;
-        Node next;
-
-        Node(Object key, Object value, Node next) {
+    private static class Node<K, V> {
+        K key;
+        V value;
+        Node<K, V> next;
+        Node(K key, V value, Node<K, V> next) {
             this.key = key;
             this.value = value;
             this.next = next;
         }
     }
-
     public MyHashMap() {
         buckets = new Node[16];
         size = 0;
     }
-
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         int hash = hash(key);
-        Node node = buckets[hash];
+        Node<K, V> node = buckets[hash];
         while (node != null) {
             if (node.key.equals(key)) {
                 node.value = value;
@@ -30,14 +25,13 @@ public class MyHashMap {
             }
             node = node.next;
         }
-        Node newNode = new Node(key, value, buckets[hash]);
+        Node<K, V> newNode = new Node(key, value, buckets[hash]);
         buckets[hash] = newNode;
         size++;
     }
-
-    public Object get(Object key) {
+    public V get(K key) {
         int hash = hash(key);
-        Node node = buckets[hash];
+        Node<K, V> node = buckets[hash];
         while (node != null) {
             if (node.key.equals(key)) {
                 return node.value;
@@ -46,11 +40,10 @@ public class MyHashMap {
         }
         return null;
     }
-
-    public void remove(Object key) {
+    public void remove(K key) {
         int hash = hash(key);
-        Node node = buckets[hash];
-        Node prev = null;
+        Node<K, V> node = buckets[hash];
+        Node<K, V> prev = null;
         while (node != null) {
             if (node.key.equals(key)) {
                 if (prev == null) {
@@ -65,17 +58,14 @@ public class MyHashMap {
             node = node.next;
         }
     }
-
     public void clear() {
         buckets = new Node[16];
         size = 0;
     }
-
     public int size() {
         return size;
     }
-
-    private int hash(Object key) {
+    private int hash(K key) {
         return Math.abs(key.hashCode() % buckets.length);
     }
 }

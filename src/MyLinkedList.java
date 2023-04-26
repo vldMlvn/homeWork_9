@@ -1,4 +1,4 @@
-public class MyLinkedList{
+public class MyLinkedList<E>{
     private Node head;
     private int size;
     public MyLinkedList() {
@@ -6,19 +6,17 @@ public class MyLinkedList{
         size = 0;
     }
     private class Node {
-        private Object value;
+        private E value;
         private Node next;
         private Node prev;
-
-        public Node(Object value) {
+        public Node(E value) {
             this.value = value;
             next = null;
             prev = null;
         }
     }
-    public void add(Object value) {
+    public void add(E value) {
         Node newNode = new Node(value);
-
         if (head == null) {
             head = newNode;
         } else {
@@ -32,6 +30,9 @@ public class MyLinkedList{
         size++;
     }
     public void remove(int index) {
+        if (size==0){
+            throw new IllegalStateException();
+        }
         if (index >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -59,13 +60,14 @@ public class MyLinkedList{
     public int size() {
         return size;
     }
-    public Object get(int index) {
+    public E get(int index) {
+        if (size==0) {
+            throw new IllegalArgumentException();
+        }
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-
         Node currentNode = head;
-
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
         }

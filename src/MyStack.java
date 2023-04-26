@@ -1,16 +1,22 @@
 import java.util.Arrays;
 
-public class MyStack {
-    private Object[] elements;
+public class MyStack<E> {
+    private E[] elements;
     private int size;
     public MyStack() {
-        elements = new Object[10];
+        elements =(E[]) new Object[10];
         size = 0;
     }
-    public void push(Object value) {
+    public void push(E value) {
+        if (size == elements.length) {
+            E [] newElements =(E[]) new Object[elements.length * 2];
+            for (int i = 0; i < elements.length; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
+        }
         elements[size]=value;
         size++;
-
     }
     public void remove(int index){
         if(index>=size){
@@ -30,13 +36,12 @@ public class MyStack {
     public int size(){
         return size;
     }
-    public Object peek(){
+    public E peek(){
         return elements[size-1];
     }
-    public Object pop(){
-        Object a=elements[size-1];
+    public E pop(){
+        E a=elements[size-1];
         size--;
-
         return a;
     }
 
